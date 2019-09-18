@@ -1,6 +1,7 @@
 import logging
 import json
 import traceback
+import sys
 from time import sleep
 from pysnmp.hlapi import getCmd, bulkCmd, SnmpEngine, CommunityData, UdpTransportTarget, ContextData, ObjectType, ObjectIdentity
 from ipaddress import ip_address
@@ -65,7 +66,11 @@ def get_func(ip):
 
 
 if __name__ == "__main__":
-    file_name = 'DES-1210-28_ME_B3.txt'
+    if sys.argv[1]:
+        file_name = sys.argv[1]
+    else:
+        file_name = 'DES-1210-28_ME_B3.txt'
+#    file_name = 'DES-1210-28_ME_B3.txt'
     OID = '.1.3.6.1.2.1.17.7.1.4.5.1.1.'
     community = 'holding08'
     snmp_port = 161
