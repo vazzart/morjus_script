@@ -72,7 +72,7 @@ if __name__ == "__main__":
     bad_ips = []
     wh_list = white_list()
     ################################
-    #Logger settings
+    # Logger settings
     logger = logging.getLogger("MAIN_APP")
     logger.setLevel(logging.INFO)
     fh = logging.FileHandler("{}.log".format(file_name))
