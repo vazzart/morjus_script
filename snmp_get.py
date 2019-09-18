@@ -28,7 +28,7 @@ def snmp_get_next (community, ip, port, OID):
             return None
 
 def white_list():
-    conrol_vlan_list = [100,200,300,400,500,600,199,299,399,499,599,699]
+    conrol_vlan_list = [100,200,300,400,500,600]
     user_vlan_list= [x for x in range(1000, 1500)]
     whitelist = conrol_vlan_list + user_vlan_list
     return whitelist
