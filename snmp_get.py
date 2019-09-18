@@ -65,7 +65,7 @@ def get_func(ip):
 
 
 if __name__ == "__main__":
-    file_name = 'DES-1210-28_ME_B2.txt'
+    file_name = 'DES-1210-28_ME_B3.txt'
     OID = '.1.3.6.1.2.1.17.7.1.4.5.1.1.'
     community = 'holding08'
     snmp_port = 161
@@ -101,4 +101,4 @@ if __name__ == "__main__":
                 f.write(i + '\n')
     print('WRITE BAD is OK')
 
-
+#just_comment
