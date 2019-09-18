@@ -44,6 +44,7 @@ def check_ip(ip):
         return True
 
 def get_func(ip):
+    logger.info('Start check IP: {}'.format(ip))
     if check_ip(ip):
         port_dict = {}
         for commut_port in range(1, 28 + 1):
