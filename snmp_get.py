@@ -1,5 +1,6 @@
-
+import logging
 import json
+import traceback
 from time import sleep
 from pysnmp.hlapi import getCmd, bulkCmd, SnmpEngine, CommunityData, UdpTransportTarget, ContextData, ObjectType, ObjectIdentity
 from ipaddress import ip_address
@@ -49,6 +50,7 @@ def get_func(ip):
             try:
                 port_dict[commut_port] = (snmp_get_next(community, ip, snmp_port, '{}{}'.format(OID, str(commut_port))))
             except:
+                logger.error('Fail in get_func() ip: {} traceback:{}'.format(ip, traceback.format_exc()))
                 bad_ips.append(ip)
         if port_dict:
             result_dict[ip] = port_dict
@@ -56,6 +58,7 @@ def get_func(ip):
     else:
         #print('BAD IP: {}'.format(ip))
         bad_ips.append(ip)
+        logger.error('BAD IP: {} traceback:{}'.format(ip, traceback.format_exc()))
     pbar.update(1)
 
 
@@ -68,6 +71,15 @@ if __name__ == "__main__":
     ips = []
     bad_ips = []
     wh_list = white_list()
+    ################################
+    #Logger settings
+    logger = logging.getLogger("MAIN_APP")
+    logger.setLevel(logging.INFO)
+    fh = logging.FileHandler("{}.log".format(file_name))
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    fh.setFormatter(formatter)
+    logger.addHandler(fh)
+    #################################
     with open (file_name, 'r') as f:
         lines = f.readlines()
         for line in lines:
