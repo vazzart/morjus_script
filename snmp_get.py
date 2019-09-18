@@ -47,7 +47,7 @@ def get_func(ip):
         port_dict = {}
         for commut_port in range(1, 28 + 1):
             try:
-                port_dict[commut_port] = int(snmp_get_next(community, ip, snmp_port, '{}{}'.format(OID, str(commut_port))))
+                port_dict[commut_port] = (snmp_get_next(community, ip, snmp_port, '{}{}'.format(OID, str(commut_port))))
             except:
                 bad_ips.append(ip)
                 #print('BAD SNMP get {}'.format(ip))
