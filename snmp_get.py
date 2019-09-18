@@ -50,16 +50,6 @@ def get_func(ip):
                 port_dict[commut_port] = (snmp_get_next(community, ip, snmp_port, '{}{}'.format(OID, str(commut_port))))
             except:
                 bad_ips.append(ip)
-                #print('BAD SNMP get {}'.format(ip))
-            # else:
-            #     try:
-            #         if int(port_dict[commut_port]) not in wh_list:
-            #             break
-            #     except:
-            #         break
-        else:
-            port_dict = {}
-            bad_ips.append(ip)
         if port_dict:
             result_dict[ip] = port_dict
             #print('============={}===============\n{}\n{}\n'.format(datetime.now(), ip, json.dumps(port_dict)))
