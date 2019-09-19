@@ -45,7 +45,7 @@ def check_ip(ip):
         return True
 
 def get_func(ip):
-    logger.info('Start check IP: {}'.format(ip))
+    logger.info('Start SNMP check IP: {}'.format(ip))
     if check_ip(ip):
         port_dict = {}
         for commut_port in range(1, 28 + 1):
@@ -63,7 +63,17 @@ def get_func(ip):
         logger.error('BAD IP: {} traceback:{}'.format(ip, traceback.format_exc()))
     pbar.update(1)
 
-
+def write_results(result_dict, bad_ips):
+    if result_dict:
+        with open (file_name + '.result.txt', 'w') as f:
+            f.write(json.dumps(result_dict))
+            print('WRITE RESULT is OK')
+    if bad_ips:
+        with open (file_name + '.bad_ip_list.txt', 'w') as f:
+            for i in bad_ips:
+                f.write(i + '\n')
+    print('WRITE BAD is OK')
+    logger.info('SNMP GET is FINISHED')
 
 if __name__ == "__main__":
     # if sys.argv[1]:
@@ -96,14 +106,6 @@ if __name__ == "__main__":
     pool.close()
     pool.join()
     pbar.close()
-    if result_dict:
-        with open (file_name + '.result.txt', 'w') as f:
-            f.write(json.dumps(result_dict))
-            print('WRITE RESULT is OK')
-    if bad_ips:
-        with open (file_name + '.bad_ip_list.txt', 'w') as f:
-            for i in bad_ips:
-                f.write(i + '\n')
-    print('WRITE BAD is OK')
+    write_results(result_dict, bad_ips)
 
 #just_comment
